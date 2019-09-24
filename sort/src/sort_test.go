@@ -76,6 +76,11 @@ func TestCustomSort(t *testing.T) {
 			"1 3",
 		},
 		{
+			"1",
+			"3 11",
+			"2 2",
+		},
+		{
 			"a",
 			"A",
 		},
@@ -113,6 +118,11 @@ func TestCustomSort(t *testing.T) {
 			"2 2",
 		},
 		{
+			"3 11",
+			"2 2",
+			"1",
+		},
+		{
 			"a",
 			"A",
 		},
@@ -133,6 +143,11 @@ func TestCustomSort(t *testing.T) {
 		{
 			columnNum: 1,
 			reverse:   false,
+		},
+		{
+			columnNum: 1,
+			reverse:   true,
+			numerical: true,
 		},
 		{
 			columnNum: 1,
