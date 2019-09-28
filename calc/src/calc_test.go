@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestEvalFromString(t *testing.T) {
+func TestEvalFromStringPos(t *testing.T) {
 	test := []string{
 		"2+2",
 		"2+4*2",
@@ -28,5 +28,17 @@ func TestEvalFromString(t *testing.T) {
 		result, err := EvalFromString(expr)
 		assert.Equal(t, result, wanted[idx], "Error on test %d, with expr %v. Wanted %v, got %d", idx, expr, wanted[idx], result)
 		assert.Nil(t, err, "Got not nill err on test %d", idx)
+	}
+}
+
+func TestEvalFromStringNeg(t *testing.T) {
+	test := []string{
+		"2)",
+		"--",
+		"sd2",
+	}
+	for _, expr := range test {
+		_, err := EvalFromString(expr)
+		assert.NotNil(t, err)
 	}
 }
