@@ -2,7 +2,6 @@ package main
 
 import (
 	"errors"
-	"fmt"
 	"go/ast"
 	"go/parser"
 	"go/token"
@@ -41,7 +40,6 @@ var ErrorCastParentExpr = errors.New("error casting to parent expression")
 var ErrorUnexpectedToken = errors.New("error got unexpected token")
 
 func evalExpr(node interface{}) (int, error) {
-	fmt.Printf("Calc get %T, %v\n", node, node)
 	switch node.(type) {
 	case (*ast.BinaryExpr):
 		binaryExpr, ok := node.(*ast.BinaryExpr)
@@ -67,9 +65,11 @@ func evalExpr(node interface{}) (int, error) {
 	}
 }
 
+// EvalFromString evals mathematical expression from string
 func EvalFromString(expression string) (int, error) {
-	astRoot, _ := parser.ParseExpr(expression)
-	fs := token.NewFileSet()
-	ast.Print(fs, astRoot)
+	astRoot, err := parser.ParseExpr(expression)
+	if err != nil {
+		return 0, err
+	}
 	return evalExpr(astRoot)
 }
