@@ -42,23 +42,14 @@ var ErrorUnexpectedToken = errors.New("error got unexpected token")
 func evalExpr(node interface{}) (int, error) {
 	switch node.(type) {
 	case (*ast.BinaryExpr):
-		binaryExpr, ok := node.(*ast.BinaryExpr)
-		if !ok {
-			return 0, ErrorCastBinaryExpr
-		}
+		binaryExpr, _ := node.(*ast.BinaryExpr)
 		result, err := calcBinary(binaryExpr)
 		return result, err
 	case (*ast.BasicLit):
-		basicLit, ok := node.(*ast.BasicLit)
-		if !ok {
-			return 0, ErrorCastBasicLit
-		}
+		basicLit, _ := node.(*ast.BasicLit)
 		return strconv.Atoi(basicLit.Value)
 	case (*ast.ParenExpr):
-		parentExpr, ok := node.(*ast.ParenExpr)
-		if !ok {
-			return 0, ErrorCastParentExpr
-		}
+		parentExpr, _ := node.(*ast.ParenExpr)
 		return evalExpr(parentExpr.X)
 	default:
 		return 0, ErrorUnexpectedToken
